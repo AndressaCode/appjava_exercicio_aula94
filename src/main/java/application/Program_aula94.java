@@ -12,6 +12,9 @@
 
 package application;
 
+import entities.Employee;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -29,5 +32,40 @@ public class Program_aula94 {
         System.out.print("How many employees will be registered? ");
         int n = sc.nextInt();
         
+        List<Employee> list = new ArrayList<>(n);
+        Employee emp = new Employee();
+        
+        for(int i=0; i<n; i++){
+            System.out.printf("Employee #%d%n", i+1);
+            System.out.print("Id: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Name: ");
+            String name = sc.nextLine();
+            System.out.print("Salary: ");
+            double salary = sc.nextDouble();
+            System.out.printf("%n%n");
+            
+            list.add(new Employee(id, name, salary));
+        }
+        System.out.println("List of employees: " + list);
+        
+        System.out.println();
+        System.out.print("Enter the employee id to receive a salary increase: ");
+        int id = sc.nextInt();
+        // verificar se esse id existe
+        emp = list.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        if(emp == null){
+            System.out.print("This employee id does not exist! ");
+        } else{
+            System.out.print("Enter the percentage: ");
+            double percentage = sc.nextDouble();
+            emp.IncreaseSalary(percentage);
+        }
+        System.out.println();
+        for(Employee obj : list){
+            System.out.println("List of employees: " + list);
+        }
+        sc.close();
     }
 }
